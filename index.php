@@ -1,13 +1,55 @@
+<?php
+// Replace these values with your Azure SQL database credentials
+$server = "tcp:demotask1801-server.database.windows.net,1433";
+$username = "demotask1801-server-admin";
+$password = "CY867AL6B3O2372W$";
+$database = "demotask1801-database";
+
+// Establishes the connection
+$connectionOptions = array(
+    "Database" => $database,
+    "Uid" => $username,
+    "PWD" => $password
+);
+$conn = sqlsrv_connect($server, $connectionOptions);
+
+// Check the connection
+if (!$conn) {
+    die(print_r(sqlsrv_errors(), true));
+}
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get the data from the form
+    $enteredData = $_POST["entered_data"];
+
+    // SQL query to insert data into the database
+    $sql = "INSERT INTO formdetails (Name) VALUES (?)";
+    $params = array($enteredData);
+    $stmt = sqlsrv_query($conn, $sql, $params);
+
+    // Check if the query was successful
+    if ($stmt === false) {
+        die(print_r(sqlsrv_errors(), true));
+    }
+
+    echo "Data successfully inserted into the database.";
+}
+
+// Close the connection
+sqlsrv_close($conn);
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>Data Submission</title>
+    <title>Insert Data</title>
 </head>
 <body>
-<form action="process.php" method="post">
-  <label for="data">Enter your data:</label>
-  <input type="text" id="data" name="data">
-  <button type="submit">Submit</button>
-</form>
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <label for="entered_data">Enter Data:</label>
+        <input type="text" name="entered_data" required>
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>
