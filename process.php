@@ -17,7 +17,7 @@ if ($conn->connect_error) {
 $data = $_POST['data'];
 
 // Prepare the SQL statement
-$sql = "INSERT INTO formdetails (data_column) VALUES (?)";
+$sql = "INSERT INTO formdetails (id) VALUES (?)";
 $stmt = $conn->prepare($sql);
 
 // Bind the data to the prepared statement
