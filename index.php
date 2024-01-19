@@ -1,9 +1,9 @@
 <?php
 // Replace these values with your Azure SQL database credentials
-$server = "tcp:demotask1801-server.database.windows.net,1433";
-$username = "demotask1801-server-admin";
-$password = "CY867AL6B3O2372W$";
-$database = "demotask1801-database";
+$server = "tcp:task1901.database.windows.net,1433";
+$username = "sqladmin";
+$password = "@Parth4!!0108";
+$database = "task1901";
 
 // Establishes the connection
 $connectionOptions = array(
